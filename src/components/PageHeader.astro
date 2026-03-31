@@ -1,0 +1,23 @@
+---
+import Breadcrumb from './Breadcrumb.astro';
+import MetadataRow from './MetadataRow.astro';
+const { title, description, kicker, breadcrumb = [], meta = {}, accent, variant = 'detail', helper, contextLabel } = Astro.props;
+---
+<section class:list={['page-header', `page-header--${variant}`]} style={`--accent:${accent || 'var(--accent-blue)'}`}>
+  {breadcrumb.length > 0 && <Breadcrumb items={breadcrumb} />}
+  {kicker && <span class="kicker">{kicker}</span>}
+  <div class="page-header__title-row">
+    <div>
+      <h1>{title}</h1>
+      <div class="accent-bar"></div>
+      <p class="lead">{description}</p>
+    </div>
+    {helper && (
+      <aside class="page-header__helper surface">
+        {contextLabel && <span class="kicker">{contextLabel}</span>}
+        <p class="section-intro">{helper}</p>
+      </aside>
+    )}
+  </div>
+  <MetadataRow {...meta} />
+</section>

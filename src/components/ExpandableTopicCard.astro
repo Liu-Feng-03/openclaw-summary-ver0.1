@@ -1,0 +1,27 @@
+---
+import MetadataRow from './MetadataRow.astro';
+import { withBase } from '../utils/links';
+const { topic, groupLabel } = Astro.props;
+---
+<details class="expandable card topic-card">
+  <summary>
+    <div class="topic-card__summary">
+      <div>
+        {groupLabel && <span class="kicker">{groupLabel}</span>}
+        <strong class="card-title">{topic.title}</strong>
+      </div>
+      <span class:list={['completion-pill', `completion-pill--${topic.completion}`]}>{topic.completion}</span>
+    </div>
+    <p class="section-intro">{topic.summary}</p>
+    <MetadataRow audience={topic.audience} difficulty={topic.difficulty} readingTime={topic.readingTime} tags={topic.tags} />
+  </summary>
+  <div class="expand-body">
+    <p><strong>为什么值得现在看：</strong>{topic.whyItMatters}</p>
+    <p><strong>这一页主要帮你：</strong>{topic.purpose}</p>
+    {topic.prerequisites?.length ? <p><strong>前置：</strong>{topic.prerequisites.join('、')}</p> : null}
+    {topic.related?.length ? <p><strong>相关页：</strong>{topic.related.join('、')}</p> : null}
+    <div class="cta-row">
+      <a class="button primary" href={withBase(`/${topic.module}/${topic.slug}`)}>打开完整页面</a>
+    </div>
+  </div>
+</details>

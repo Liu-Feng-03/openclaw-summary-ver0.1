@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RouteCard from '../components/RouteCard.astro';
+import QuickPathBlock from '../components/QuickPathBlock.astro';
+import { withBase } from '../utils/links';
+import { homeRoutes, learningPath, modules, shareableLinks } from '../data/site';
+---
+<BaseLayout title="openclaw-summary v0.2" description="中文 OpenClaw 学习站的 Astro 重构版" current="home" currentPath="/">
+  <section class="hero hero--home">
+    <div class="hero-copy">
+      <span class="kicker">Guided interactive learning</span>
+      <h1>把 OpenClaw 学成一条更清楚的路。</h1>
+      <p>这是一个面向中文用户的 OpenClaw 学习站 v0.2：先给你方向、再给你预览、最后才让你跳到完整阅读页。</p>
+      <div class="cta-row">
+        <a class="button primary" href={withBase('/getting-started')}>我是新手，带我开始</a>
+        <a class="button secondary" href={withBase('/concepts')}>按主题浏览</a>
+      </div>
+    </div>
+    <div class="hero-side-grid">
+      <section class="surface aligned-card">
+        <span class="kicker">这个首页现在负责什么</span>
+        <ul class="list compact-list">
+          <li>先定义产品是什么，不让新用户一落地就迷路。</li>
+          <li>按阶段 / 按目标 / 按模块三种方式做分流。</li>
+          <li>把学习路径变成可以直接点开的步骤对象。</li>
+        </ul>
+      </section>
+      <section class="surface aligned-card">
+        <span class="kicker">先别做什么</span>
+        <ul class="list compact-list">
+          <li>不要把首页当成完整目录。</li>
+          <li>不要试图第一轮把所有页面都读完。</li>
+          <li>先建立方位感，再决定深入哪一块。</li>
+        </ul>
+      </section>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading-row">
+      <div>
+        <h2 class="section-title">三种进入方式</h2>
+        <p class="section-intro">先帮你选入口，而不是把所有模块平铺成同权重目录。</p>
+      </div>
+    </div>
+    <div class="grid three equal-grid">
+      <section class="surface aligned-card">
+        <span class="kicker">按阶段学习</span>
+        <div class="grid route-stack">
+          {homeRoutes.stage.map((item) => <RouteCard item={item} />)}
+        </div>
+      </section>
+      <section class="surface aligned-card">
+        <span class="kicker">按目标进入</span>
+        <div class="grid route-stack">
+          {homeRoutes.goal.map((item) => <RouteCard item={item} />)}
+        </div>
+      </section>
+      <section class="surface aligned-card">
+        <span class="kicker">按模块查阅</span>
+        <div class="grid route-stack">
+          {modules.map((module) => <RouteCard item={{ title: module.title, description: module.description, href: `/${module.key}` }} />)}
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading-row">
+      <div>
+        <h2 class="section-title">推荐学习路径</h2>
+        <p class="section-intro">把“先看什么、再看什么”做成清楚的路径对象，而不是藏在长文案里。</p>
+      </div>
+    </div>
+    <div class="timeline">
+      {learningPath.map((step) => (
+        <details class="expandable path-step" open>
+          <summary>
+            <span class="kicker">Step {step.step}</span>
+            <h3>{step.title}</h3>
+            <p class="section-intro">{step.outcome}</p>
+            <div class="meta-row"><span class="meta-pill">预计 {step.time}</span></div>
+          </summary>
+          <div class="expand-body">
+            <div class="path-link-grid">
+              {step.pages.map((page) => <a class="card aligned-card" href={withBase(page.href)}><strong>{page.title}</strong></a>)}
+            </div>
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <QuickPathBlock title="如果你只想……" items={[
+      { title: '5 分钟了解 OpenClaw', description: '直接看定义页，快速建立正确预期。', href: '/getting-started/what-is-openclaw' },
+      { title: '尽快跑起来', description: '直接进入 Setup 的最小成功链路。', href: '/setup/install' },
+      { title: '排查常见问题', description: '先从 FAQ 的 setup / connectivity 入口判断。', href: '/faq' },
+      { title: '搞懂整体结构', description: '先看 Architecture，再决定深入哪条枝干。', href: '/concepts/architecture' }
+    ]} />
+  </section>
+
+  <section class="section split-home">
+    <section>
+      <div class="section-heading-row">
+        <div>
+          <h2 class="section-title">模块探索层</h2>
+          <p class="section-intro">自由探索保留，但放到分流之后，避免一上来变成目录浏览。</p>
+        </div>
+      </div>
+      <div class="grid two equal-grid">
+        {modules.map((module) => (
+          <a class="card aligned-card module-card" href={withBase(`/${module.key}`)} style={`--accent:${module.accent}; --tone:${module.tone}`}>
+            <span class="kicker">{module.shortTitle}</span>
+            <strong class="card-title">{module.title}</strong>
+            <p class="section-intro">{module.description}</p>
+            <div class="meta-row"><span class="meta-pill">{module.pageTypeLabel}</span></div>
+          </a>
+        ))}
+      </div>
+    </section>
+    <aside class="sidebar-stack">
+      <section class="surface aligned-card">
+        <h3 class="section-title">关系预览</h3>
+        <div class="mini-map">
+          <div class="mini-node"><strong>Session</strong><p class="section-intro">上下文容器</p></div>
+          <div class="mini-node"><strong>Gateway</strong><p class="section-intro">运行与接入枢纽</p></div>
+          <div class="mini-node"><strong>Skills</strong><p class="section-intro">行为与工具使用规则</p></div>
+          <div class="mini-node"><strong>Tools</strong><p class="section-intro">执行外部动作</p></div>
+        </div>
+      </section>
+      <section class="surface aligned-card">
+        <h3 class="section-title">高分享价值页面</h3>
+        <div class="grid route-stack">
+          {shareableLinks.map((item) => <RouteCard item={{ title: item.title, description: item.reason, href: item.href }} />)}
+        </div>
+      </section>
+    </aside>
+  </section>
+</BaseLayout>

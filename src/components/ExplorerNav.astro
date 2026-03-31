@@ -1,0 +1,43 @@
+---
+import { getExplorerTree } from '../data/site';
+import { withBase } from '../utils/links';
+
+const { currentModule, currentPath = '', mobile = false } = Astro.props;
+const tree = getExplorerTree();
+---
+
+<nav class:list={['explorer-nav', mobile && 'explorer-nav--mobile']} aria-label={mobile ? '移动端学习导航' : '学习导航'}>
+  <div class="explorer-head">
+    <span class="kicker">Learning Navigator</span>
+    <p class="explorer-copy">看见当前模块、附近页面与下一跳，不再只靠记忆。</p>
+  </div>
+
+  <a class:list={['explorer-home', currentPath === '/' && 'active']} href={withBase('/')}>
+    <span>首页</span>
+    <small>总览与入口分流</small>
+  </a>
+
+  <div class="explorer-groups">
+    {tree.map((module) => {
+      const isActiveModule = currentModule === module.key;
+      const hasCurrentChild = module.children.some((item) => item.href === currentPath);
+      return (
+        <details class="explorer-group" open={isActiveModule || hasCurrentChild}>
+          <summary>
+            <a class:list={['explorer-module-link', isActiveModule && 'active']} href={withBase(module.href)}>{module.title}</a>
+          </summary>
+          <ul>
+            {module.children.map((item) => (
+              <li>
+                <a class:list={['explorer-child-link', item.href === currentPath && 'active']} href={withBase(item.href)}>
+                  <span>{item.title}</span>
+                  <small>{item.group}</small>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      );
+    })}
+  </div>
+</nav>

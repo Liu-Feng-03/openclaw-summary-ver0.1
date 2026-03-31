@@ -1,0 +1,21 @@
+---
+import { modules } from '../data/site';
+import { withBase } from '../utils/links';
+const { current = '', currentPath = '' } = Astro.props;
+const links = [{ title: '首页', href: '/', key: 'home' }, ...modules.map((item) => ({ title: item.title, href: `/${item.key}`, key: item.key }))];
+---
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href={withBase('/')} class="brand">
+      openclaw-summary
+      <small>{currentPath === '/' ? '首页总览' : 'v0.2 学习产品重构'}</small>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      {links.map((link) => (
+        <a href={withBase(link.href)} class:list={["nav-link", current === link.key && 'active']}>
+          <span>{link.title}</span>
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>

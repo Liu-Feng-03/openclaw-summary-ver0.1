@@ -1,0 +1,12 @@
+---
+import { withBase } from '../utils/links';
+const { items = [] } = Astro.props;
+---
+<nav class="breadcrumb" aria-label="面包屑">
+  {items.map((item, index) => (
+    <>
+      {index > 0 && <span>/</span>}
+      {item.href ? <a href={withBase(item.href)}>{item.label}</a> : <span>{item.label}</span>}
+    </>
+  ))}
+</nav>

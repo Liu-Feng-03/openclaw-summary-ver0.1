@@ -1,0 +1,46 @@
+---
+import TopNav from '../components/TopNav.astro';
+import ExplorerNav from '../components/ExplorerNav.astro';
+import '../styles/global.css';
+const { title = 'openclaw-summary', description = '', current = '', currentPath = '', showExplorer = false } = Astro.props;
+---
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <TopNav current={current} currentPath={currentPath} />
+    <main class="page">
+      <div class:list={["container", showExplorer && 'page-shell']}>
+        {showExplorer && (
+          <>
+            <aside class="page-sidebar">
+              <ExplorerNav currentModule={current} currentPath={currentPath} />
+            </aside>
+            <details class="mobile-explorer surface">
+              <summary>
+                <span class="kicker">当前导航</span>
+                <strong>打开学习导航</strong>
+              </summary>
+              <div class="mobile-explorer__body">
+                <ExplorerNav currentModule={current} currentPath={currentPath} mobile={true} />
+              </div>
+            </details>
+          </>
+        )}
+        <div class="page-content">
+          <slot />
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="container footer-grid">
+        <span>openclaw-summary v0.2 · Astro static rebuild</span>
+        <span>目标：更强导览、更低跳转焦虑、更清晰的下一步</span>
+      </div>
+    </footer>
+  </body>
+</html>

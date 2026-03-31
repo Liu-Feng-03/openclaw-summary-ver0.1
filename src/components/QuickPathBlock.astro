@@ -1,0 +1,15 @@
+---
+import { withBase } from '../utils/links';
+const { title, items } = Astro.props;
+---
+<section class="surface">
+  <h3 class="section-title">{title}</h3>
+  <div class="grid two">
+    {items.map((item) => (
+      <a class="route-card" href={withBase(item.href)}>
+        <strong>{item.title}</strong>
+        <p class="section-intro">{item.description}</p>
+      </a>
+    ))}
+  </div>
+</section>

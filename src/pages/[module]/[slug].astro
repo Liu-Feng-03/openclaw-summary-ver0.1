@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import NextStepBlock from '../../components/NextStepBlock.astro';
+import PrevNextNav from '../../components/PrevNextNav.astro';
+import { withBase } from '../../utils/links';
+import { topics, getModule, getTopic, getTopicSiblings } from '../../data/site';
+
+export function getStaticPaths() {
+  return topics.map((topic) => ({ params: { module: topic.module, slug: topic.slug } }));
+}
+
+const { module: moduleKey, slug } = Astro.params;
+const topic = getTopic(`${moduleKey}/${slug}`)!;
+const moduleInfo = getModule(moduleKey as any);
+const siblings = getTopicSiblings(moduleKey as any, slug as string);
+const prevTopic = siblings.prev ?? null;
+const nextTopic = siblings.next ?? null;
+const nextItem = topic.next ? getTopic(topic.next) : nextTopic ?? undefined;
+const alternatives = (topic.related || []).map((path) => getTopic(path)).filter(Boolean).slice(0, 2).map((item) => ({ title: item!.title, description: item!.summary, href: `/${item!.module}/${item!.slug}` }));
+---
+<BaseLayout
+  title={`${topic.title} · openclaw-summary`}
+  description={topic.summary}
+  current={moduleInfo.key}
+  currentPath={`/${topic.module}/${topic.slug}`}
+  showExplorer={true}
+>
+  <PageHeader
+    title={topic.title}
+    description={topic.purpose}
+    kicker={moduleInfo.title}
+    accent={moduleInfo.accent}
+    variant="detail"
+    helper={`你现在位于「${moduleInfo.title}」模块，左侧导航会固定显示当前页和附近兄弟页。`}
+    contextLabel={topic.group || '当前页面'}
+    breadcrumb={[{ label: '首页', href: '/' }, { label: moduleInfo.title, href: `/${moduleInfo.key}` }, { label: topic.title }]}
+    meta={{ audience: topic.audience, difficulty: topic.difficulty, readingTime: topic.readingTime, tags: topic.tags }}
+  />
+
+  <section class="detail-top-grid section">
+    <section class="surface summary-box" style={`--accent:${moduleInfo.accent}`}>
+      <span class="kicker">快速定位</span>
+      <h2 class="section-title">先用一句话讲清楚</h2>
+      <p class="section-intro">{topic.quickAnswer}</p>
+      <div class="summary-grid">
+        <div>
+          <span class="kicker">为什么在这里</span>
+          <p class="section-intro">{topic.whyItMatters}</p>
+        </div>
+        <div>
+          <span class="kicker">当前完成度</span>
+          <p class="section-intro">这页属于 <strong>{topic.completion}</strong> 级完成度，已经纳入 v0.2 统一导航与阅读系统。</p>
+        </div>
+      </div>
+    </section>
+    <aside class="sidebar-stack detail-sidebar">
+      <section class="surface detail-sidebar-card">
+        <span class="kicker">适合谁</span>
+        <p class="section-intro">{topic.audience}</p>
+      </section>
+      <section class="surface detail-sidebar-card">
+        <span class="kicker">读完后建议</span>
+        <p class="section-intro">{nextItem ? `优先继续看「${nextItem.title}」` : '你可以回到模块页继续挑选下一篇。'}</p>
+      </section>
+    </aside>
+  </section>
+
+  <section class="section detail-reading-shell">
+    <div class="section-heading-row">
+      <div>
+        <h2 class="section-title">正文</h2>
+        <p class="section-intro">保持 detail 页的阅读导向：标题更轻，正文、关系与下一步更重要。</p>
+      </div>
+    </div>
+    <div class="reading-stack">
+      {topic.sections.map((section) => (
+        <section class="surface reading-section">
+          <h3>{section.title}</h3>
+          {section.body.map((paragraph) => <p class="section-intro">{paragraph}</p>)}
+        </section>
+      ))}
+    </div>
+  </section>
+
+  {topic.misunderstandings?.length && (
+    <section class="section surface">
+      <h2 class="section-title">常见误解 / 容易踩坑的地方</h2>
+      <ul class="list compact-list">
+        {topic.misunderstandings.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
+  )}
+
+  {topic.related?.length && (
+    <section class="section surface">
+      <div class="section-heading-row">
+        <div>
+          <h2 class="section-title">相关页面</h2>
+          <p class="section-intro">横向探索也不该让人失去方向，所以这里只放和当前页最相关的连接。</p>
+        </div>
+      </div>
+      <div class="grid two equal-grid">
+        {topic.related.map((path) => {
+          const item = getTopic(path);
+          return item ? (
+            <a class="card aligned-card" href={withBase(`/${item.module}/${item.slug}`)}>
+              <span class="kicker">{item.group || item.module}</span>
+              <strong class="card-title">{item.title}</strong>
+              <p class="section-intro">{item.summary}</p>
+            </a>
+          ) : null;
+        })}
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <NextStepBlock primary={nextItem ? { title: nextItem.title, description: nextItem.summary, href: `/${nextItem.module}/${nextItem.slug}` } : { title: `回到 ${moduleInfo.title}`, description: '继续从模块页选择下一篇。', href: `/${moduleInfo.key}` }} alternatives={alternatives} />
+  </section>
+
+  <section class="section">
+    <PrevNextNav
+      prev={prevTopic ? { title: prevTopic.title, description: prevTopic.summary, href: `/${prevTopic.module}/${prevTopic.slug}` } : null}
+      next={nextTopic ? { title: nextTopic.title, description: nextTopic.summary, href: `/${nextTopic.module}/${nextTopic.slug}` } : null}
+    />
+  </section>
+</BaseLayout>

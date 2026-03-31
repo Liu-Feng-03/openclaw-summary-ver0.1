@@ -1,7 +1,7 @@
 # ROADMAP.md — openclaw-summary
 
 Last updated: 2026-03-31
-Status: Product design phase
+Status: v0.1 completed; v0.2 redesign direction confirmed
 
 ---
 
@@ -31,23 +31,42 @@ In one sentence:
 
 ### Product form
 - Multi-page site + homepage overview
+- Each important topic should still have an independent URL
+- The browsing experience should no longer rely on hard page jumps alone
 
 ### Visual style
 - Card-based learning product style
 - With a light technology feel
 - Prioritize clarity, structure, and readability over flashy effects
 
-### Depth of v1
+### Depth of v1 / v2 continuity
 - Cover both beginner and advanced knowledge from the start
-- But still organize content in layered form so beginners are not overwhelmed
+- Organize content in layered form so beginners are not overwhelmed
+- Add stronger progressive disclosure in v0.2
 
 ### Content source strategy
 - Combination of official OpenClaw documentation and real-world practical experience
 
+### Confirmed redesign decision
+- Keep the 7-module knowledge model
+- Keep public shareable URLs
+- Migrate implementation from pure static hand-authored multi-page HTML to a **lightweight frontend framework**
+- Prefer a route that still supports **static deployment** and easy public access
+
+### Recommended framework direction
+Preferred order:
+1. Astro
+2. Next.js with static export
+3. Vite + React
+
+Current recommendation:
+- **Astro**
+
 ### Collaboration mode for this repo
-- **Current process only handles product design and roadmap writing**
-- **Actual development should happen in a separate new process/session**
-- This follows the previously agreed token-saving / low-context workflow
+- Product design was completed first in a lightweight planning process
+- v0.1 implementation was completed in a separate low-context development process
+- v0.2 redesign / IA / UX revision should continue in focused planning updates
+- v0.2 implementation should be handled in a new lean development process after design docs are aligned
 
 ---
 
@@ -62,6 +81,7 @@ The site should help a user:
 5. understand advanced mechanisms and best practices
 6. solve common problems quickly
 7. share specific pages with others via URL
+8. know where they are, what a page is for, and what to read next
 
 Success means:
 
@@ -69,6 +89,7 @@ Success means:
 - users know what to read first, next, and later
 - the site is easier to learn from than reading raw docs alone
 - individual pages are worth sharing directly
+- users can browse with confidence instead of feeling lost after each click
 
 ---
 
@@ -84,10 +105,16 @@ The hard part of OpenClaw is how components fit together.
 The site should always answer: where am I, what is this, what should I read next?
 
 ### P4. Interaction must help understanding
-Interactive maps, cards, path navigation, and step guides should reduce cognitive load.
+Interactive maps, cards, path navigation, previews, and step guides should reduce cognitive load.
 
 ### P5. Every important page should be independently shareable
 Pages should still make sense when opened directly from a shared URL.
+
+### P6. Guide before exposing too many choices
+Users should not have to solve navigation ambiguity before learning begins.
+
+### P7. Use progressive disclosure to reduce jump friction
+Users should be able to preview and expand before committing to a page transition.
 
 ---
 
@@ -106,31 +133,37 @@ Need a system-level explanation, advanced understanding, and troubleshooting sup
 
 ## 6. Information Architecture
 
-The product will be organized into 7 top-level modules.
+The product remains organized into 7 top-level modules.
 
 ### 1) Home
 Purpose:
 - explain what this site is
+- explain how to use the site
 - provide major entry points
 - show the learning path
+- route users by stage, goal, or module
 
 ### 2) Getting Started
 Purpose:
 - help absolute beginners understand OpenClaw at a high level
 - provide a recommended first reading path
+- reduce fear of “not knowing where to begin”
 
 ### 3) Core Concepts
 Purpose:
 - explain architecture and key concepts
 - show relationships between components
+- help users build a correct mental model before going deeper
 
 ### 4) Setup & Deployment
 Purpose:
 - guide users from environment prep to first successful interaction
+- make the setup journey feel stepwise and verifiable
 
 ### 5) Use Cases
 Purpose:
 - show practical applications and common scenarios
+- let users enter by real goals, not only abstract concepts
 
 ### 6) Advanced Topics
 Purpose:
@@ -139,10 +172,11 @@ Purpose:
 ### 7) FAQ / Troubleshooting
 Purpose:
 - reduce friction by addressing common setup, connectivity, behavior, and logging problems
+- provide quick confidence-building answers when users feel blocked
 
 ---
 
-## 7. Planned Sitemap (v0.1)
+## 7. Planned Sitemap
 
 ### Top-level pages
 - `/` Home
@@ -206,6 +240,10 @@ Purpose:
 - `/faq/skills-and-tools`
 - `/faq/security-and-behavior`
 
+Note:
+- The sitemap stays broadly stable in v0.2
+- The main redesign is in interaction, navigation, and presentation logic rather than a full sitemap reset
+
 ---
 
 ## 8. Content Model
@@ -246,19 +284,40 @@ To keep the site maintainable, each content type should follow a fixed structure
 - prevention
 - related concept/setup pages
 
+### New metadata layer for v0.2
+Each page or preview card should support, when useful:
+- audience
+- difficulty
+- estimated reading time
+- prerequisites
+- tags
+- related pages
+- recommended next step
+- place in learning path
+
 ---
 
 ## 9. Key Interactive Experiences
 
 These are the main interaction ideas that distinguish the project from a plain docs site.
 
-### A. Learning Path Navigation
+### A. Guided Entry System
+Users can enter by:
+- stage
+- goal
+- module
+
+The homepage should not expose all paths with equal weight at once.
+
+### B. Learning Path Navigation
 Users can learn by:
 - recommended sequence
 - topic browsing
 - goal-based exploration
 
-### B. Card-Based Knowledge Browsing
+The learning path should become a clearer UI object, not just text blocks.
+
+### C. Card-Based Knowledge Browsing
 Use cards for:
 - concepts
 - scenarios
@@ -266,8 +325,13 @@ Use cards for:
 - advanced topics
 - FAQs
 
-### C. Interactive Concept Map
-A clickable visual relationship map for:
+In v0.2, cards should support preview / expansion before full navigation.
+
+### D. Expandable Module Hubs
+Top-level module pages should become expandable knowledge hubs rather than simple jump lists.
+
+### E. Interactive Concept Relationship View
+A clickable visual or semi-visual relationship layer for:
 - OpenClaw core
 - gateway
 - agent
@@ -280,22 +344,22 @@ A clickable visual relationship map for:
 - heartbeat/cron
 - subagents / ACP
 
-### D. Guided Setup Flow
+### F. Guided Setup Flow
 A step-by-step setup experience with:
 - current step
 - purpose
 - actions
 - expected result
 - troubleshooting hints
+- next step guidance
 
-### E. Use-Case Explorer
-Entry by user goal, such as:
-- I want to understand OpenClaw
-- I want to set it up
-- I want to connect Telegram/Discord
-- I want calendar/notes/reminders workflows
-- I want GitHub/dev workflows
-- I want remote access / multi-device usage
+### G. Strong Wayfinding
+Detail pages should clearly show:
+- breadcrumb
+- current module
+- recommended next page
+- related pages
+- previous / next navigation
 
 ---
 
@@ -308,6 +372,8 @@ Keywords:
 - slightly futuristic
 - modular
 - shareable
+- confidence-building
+- guided
 
 Design guidance:
 - card-heavy layout
@@ -315,6 +381,7 @@ Design guidance:
 - subtle gradients and grid/connection motifs
 - avoid over-designed cyberpunk aesthetics
 - content comprehension first
+- use expansion and visual grouping to reduce jump anxiety
 
 ---
 
@@ -322,16 +389,15 @@ Design guidance:
 
 Although v1 covers beginner through advanced topics, the implementation should still be layered.
 
-### Include in v1
-- full top-level information architecture
-- homepage overview
-- beginner onboarding content
-- concept pages
-- setup path
-- use-case section
-- advanced section
-- FAQ section
-- shareable page URLs
+### Include in v0.2
+- framework migration to lightweight component architecture
+- preserve all important independent page URLs
+- homepage redesign around routing and confidence-building
+- module pages redesigned as expandable hubs
+- improved detail-page wayfinding
+- stronger card system with metadata
+- clearer learning path UI
+- improved concept relationship interaction
 
 ### Avoid in this phase
 - account system
@@ -339,6 +405,7 @@ Although v1 covers beginner through advanced topics, the implementation should s
 - online execution sandbox
 - complex CMS/backend editing system
 - AI chatbot layer on top of content
+- unnecessary server-side complexity
 
 ---
 
@@ -350,47 +417,61 @@ Although v1 covers beginner through advanced topics, the implementation should s
 Mitigation:
 - keep a strong top-level structure
 - write layered content instead of dumping everything flat
+- prioritize experience architecture before content expansion
 
 ### Risk 2: Becoming just another docs mirror
 Mitigation:
-- prioritize pathing, relationships, visual navigation, and interaction
+- prioritize pathing, relationships, previews, visual navigation, and interaction
 
 ### Risk 3: Too hard for beginners, too shallow for experienced users
 Mitigation:
 - each page must support progressive depth
+- cards and previews must help users pick the right depth level
 
 ### Risk 4: Pages are not independently useful when shared
 Mitigation:
 - every page needs self-contained context and next-step guidance
 
+### Risk 5: Framework migration adds complexity without improving UX
+Mitigation:
+- migrate only to a lightweight framework
+- preserve static deployment
+- focus the migration on reusable navigation, card, and expansion patterns
+
 ---
 
 ## 13. Delivery Strategy
 
-This roadmap intentionally stops at **product design and planning**.
+### Planning process already completed for v0.1
+- product positioning
+- information architecture
+- scope and principles
+- roadmap writing
+- content matrix definition
 
-### What this current process is responsible for
-- define product positioning
-- define information architecture
-- define scope and principles
-- write roadmap into the repo
+### Development process already completed for v0.1
+- technical route chosen as static multi-page site
+- project scaffold created
+- all planned v0.1 pages generated as independent URLs
+- shared visual system / navigation / layout implemented
+- GitHub Pages deployment configured and working
 
-### What the next separate development process should handle
-- technical stack decision
-- project scaffolding
-- page implementation
-- component system
-- content authoring workflow
-- deployment and share URL setup
+### Confirmed v0.2 planning direction
+- redesign the experience architecture based on real usage feedback
+- update roadmap and content matrix
+- define homepage/module/detail/navigation patterns before the new implementation pass
 
-This separation is intentional to reduce context bloat and token usage.
+### Recommended future workflow
+- product redesign, IA changes, and copy strategy updates should happen in separate focused sessions
+- implementation updates should continue in lean development sessions
+- keep roadmap and implementation state synchronized after each milestone
 
 ---
 
 ## 14. Phases
 
 ### Phase 0 — Product Definition ✅
-Status: done in current process
+Status: done
 
 Includes:
 - product positioning
@@ -401,56 +482,71 @@ Includes:
 - interaction direction
 - scope boundaries
 
-### Phase 1 — Content Architecture
+### Phase 1 — Content Architecture ✅
+Status: completed
+
 Goal:
 - turn sitemap into a page-by-page content matrix
 - define what each page must teach
 - define reading order and cross-links
 
-Suggested outputs:
-- content matrix
-- page inventory
-- module-level briefs
-- homepage content outline
+### Phase 2 — Experience & UI Blueprint ✅
+Status: completed in lightweight implementation form for v0.1
 
-### Phase 2 — Experience & UI Blueprint
 Goal:
 - turn content architecture into UX structure
 
-Suggested outputs:
-- low-fidelity wireframes
-- navigation model
-- card system
-- concept-map interaction design
-- responsive layout rules
+### Phase 3 — Technical Planning ✅
+Status: completed for v0.1
 
-### Phase 3 — Technical Planning
 Goal:
 - choose frontend architecture and deployment route
 
-Suggested outputs:
-- stack decision
-- folder structure
-- routing strategy
-- content source format
-- deployment plan
+### Phase 4 — Implementation (v0.1) ✅
+Status: completed
 
-### Phase 4 — Implementation (separate process)
 Goal:
 - build the first working version of the site
 
-Suggested outputs:
-- scaffolded frontend project
-- homepage
-- top-level sections
-- initial concept pages
-- initial setup pages
-- initial FAQ pages
+### Phase 5 — Content Expansion & Refinement ✅
+Status: first pass completed
 
-### Phase 5 — Content Expansion & Refinement
 Goal:
 - fill out beginner + advanced coverage
 - improve writing, visuals, and internal linking
+
+Current result:
+- all planned sitemap pages for v0.1 have been created
+- homepage + 7 top-level modules are online
+- first-pass Chinese content has been written across beginner, concept, setup, use-case, advanced, and FAQ sections
+- internal linking, sitemap, robots.txt, 404, and GitHub Pages deployment are in place
+
+### Phase 6 — Experience Architecture Redesign 🔄
+Status: confirmed next phase
+
+Goal:
+- redesign the product from a static docs-like site into a guided interactive learning product
+
+Includes:
+- homepage routing redesign
+- module-page expandable hub pattern
+- detail-page wayfinding pattern
+- improved card system and metadata
+- concept relationship interaction upgrade
+- framework migration decision and implementation planning
+
+### Phase 7 — Framework Migration & v0.2 Rebuild
+Status: next implementation phase
+
+Goal:
+- rebuild the core experience using a lightweight frontend framework while preserving public accessibility and static deployment
+
+Includes:
+- Astro scaffold
+- shared layout/components
+- data-driven page metadata
+- accordion/expandable interaction
+- rebuilt homepage and key modules
 
 ---
 
@@ -458,27 +554,37 @@ Goal:
 
 The next session/process should begin from:
 
-> Build **Phase 1: Content Architecture** for openclaw-summary.
+> Rebuild the product design and experience architecture for v0.2, then start framework-based implementation in a separate lean process.
 
-That means producing:
-- detailed sitemap confirmation
-- content matrix for each page
-- module descriptions
-- priority order for writing/implementation
+Recommended priorities:
+- finalize homepage redesign and user-routing logic
+- define module-page expandable card pattern
+- define detail-page navigation / orientation system
+- define metadata model for cards and pages
+- migrate from pure static pages to Astro while preserving static deployment
+- rebuild the core modules first: home, getting-started, concepts, setup, faq
 
 ---
 
 ## 16. Current Project Status Snapshot
 
 Current state:
-- repo initialized
+- repo initialized and pushed to GitHub
 - product direction confirmed
-- roadmap written
-- implementation not started yet
+- roadmap written and updated
+- Phase 1 content matrix completed and updated
+- v0.1 first implementation completed
+- GitHub Pages deployment completed
+- live site available at: `https://liu-feng-03.github.io/openclaw-summary-ver0.1/`
 
 Current rule:
-- do not start coding in this process
-- continue in a separate fresh process/session for implementation planning or development
+- future product redesign happens in focused planning sessions
+- future implementation updates continue in separate low-context development sessions
+
+Implementation snapshot:
+- total coverage includes homepage plus all planned v0.1 sitemap pages
+- current implementation is a static multi-page site with shared assets and generated page files
+- latest completed development milestone includes build, commit, push, and successful GitHub Pages deployment
 
 ---
 
@@ -488,6 +594,9 @@ If another process picks this up, the handoff is:
 
 - project: `openclaw-summary`
 - repo: `Liu-Feng-03/openclaw-summary-ver0.1`
-- current stage: product design completed, roadmap written
-- next stage: content architecture, then UX blueprint, then technical planning, then implementation
-- working style: keep context lean; use separate sessions/processes for development work
+- current stage: v0.1 completed, v0.2 redesign direction confirmed
+- live site: `https://liu-feng-03.github.io/openclaw-summary-ver0.1/`
+- current implementation form: static multi-page Chinese learning site
+- next implementation form: lightweight framework-based site with static deployment (recommended: Astro)
+- next stage: experience architecture redesign and framework migration planning, then v0.2 rebuild
+- working style: keep context lean; separate product-design revisions from implementation sessions

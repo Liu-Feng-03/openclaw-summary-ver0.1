@@ -1,0 +1,14 @@
+---
+import { withBase } from '../utils/links';
+const { prev, next } = Astro.props;
+---
+<section class="prev-next">
+  <div class="card">
+    <span class="kicker">上一篇</span>
+    {prev ? <a href={withBase(prev.href)}><h3>{prev.title}</h3><p class="section-intro">{prev.description}</p></a> : <p class="section-intro">这是当前序列的起点。</p>}
+  </div>
+  <div class="card">
+    <span class="kicker">下一篇</span>
+    {next ? <a href={withBase(next.href)}><h3>{next.title}</h3><p class="section-intro">{next.description}</p></a> : <p class="section-intro">这里已经是当前序列的末端。</p>}
+  </div>
+</section>

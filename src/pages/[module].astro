@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ExpandableTopicCard from '../components/ExpandableTopicCard.astro';
+import QuickPathBlock from '../components/QuickPathBlock.astro';
+import NextStepBlock from '../components/NextStepBlock.astro';
+import { withBase } from '../utils/links';
+import { modules, getModule, getModuleSections, getTopicsByModule } from '../data/site';
+
+export function getStaticPaths() {
+  return modules.map((module) => ({ params: { module: module.key } }));
+}
+
+const { module: moduleKey } = Astro.params;
+const moduleInfo = getModule(moduleKey as any);
+const sections = getModuleSections(moduleKey as any);
+const topics = getTopicsByModule(moduleKey as any);
+const relatedAlternatives = moduleInfo.bridge.map((item) => ({ ...item }));
+const firstTopic = topics[0];
+---
+<BaseLayout
+  title={`${moduleInfo.title} · openclaw-summary`}
+  description={moduleInfo.description}
+  current={moduleInfo.key}
+  currentPath={`/${moduleInfo.key}`}
+  showExplorer={true}
+>
+  <PageHeader
+    title={moduleInfo.title}
+    description={moduleInfo.description}
+    kicker={moduleInfo.pageTypeLabel}
+    accent={moduleInfo.accent}
+    variant="module"
+    helper={moduleInfo.moduleMode}
+    contextLabel={moduleInfo.explorerLabel}
+    breadcrumb={[{ label: '首页', href: '/' }, { label: moduleInfo.title }]}
+  />
+
+  <section class="module-intro-grid section">
+    <section class="surface module-intro-card" style={`--accent:${moduleInfo.accent}; --tone:${moduleInfo.tone}`}>
+      <span class="kicker">这个模块现在做什么</span>
+      <h2 class="section-title">{moduleInfo.tagline}</h2>
+      <p class="section-intro">{moduleInfo.overviewSummary}</p>
+      <ul class="list compact-list">
+        <li>{moduleInfo.routeLabel}</li>
+        <li>{moduleInfo.startHere}</li>
+        <li>当前模块会在左侧学习导航里保持展开，帮助你看清附近页面。</li>
+      </ul>
+    </section>
+    <section class="surface module-intro-card module-intro-card--soft" style={`--accent:${moduleInfo.accent}; --tone:${moduleInfo.tone}`}>
+      <span class="kicker">推荐起点</span>
+      <h2 class="section-title">先从一个明确入口开始</h2>
+      <p class="section-intro">{moduleInfo.startHere}</p>
+      {firstTopic && <a class="button primary" href={withBase(`/${firstTopic.module}/${firstTopic.slug}`)}>从「{firstTopic.title}」开始</a>}
+    </section>
+  </section>
+
+  <section class="section">
+    <div class="section-heading-row">
+      <div>
+        <h2 class="section-title">模块地图</h2>
+        <p class="section-intro">同一个模块里的页面不再平铺，而是按功能分组，帮你先知道自己该看哪一片。</p>
+      </div>
+    </div>
+    <div class="module-section-list">
+      {sections.map((section) => (
+        <section class="surface module-section-block" style={`--accent:${moduleInfo.accent}; --tone:${moduleInfo.tone}`}>
+          <div class="module-section-head">
+            <div>
+              <span class="kicker">{section.title}</span>
+              <h3 class="section-title">{section.description}</h3>
+            </div>
+            <span class="meta-pill">{section.items.length} 页</span>
+          </div>
+          <div class="grid two natural-grid">
+            {section.items.map((topic) => <ExpandableTopicCard topic={topic} groupLabel={section.title} />)}
+          </div>
+        </section>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <QuickPathBlock title={moduleInfo.quickPathTitle} items={moduleInfo.quickPaths} />
+  </section>
+
+  {moduleInfo.bridge.length > 0 && (
+    <section class="section">
+      <NextStepBlock primary={relatedAlternatives[0]} alternatives={relatedAlternatives.slice(1)} />
+    </section>
+  )}
+</BaseLayout>

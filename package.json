@@ -1,0 +1,14 @@
+{
+  "name": "openclaw-summary-ver0.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.6.1"
+  }
+}

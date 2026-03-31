@@ -1,0 +1,26 @@
+---
+import { withBase } from '../utils/links';
+const { primary, alternatives = [] } = Astro.props;
+---
+<section class="surface next-step">
+  <div>
+    <span class="kicker">下一步建议</span>
+    <h3 class="section-title">继续往前，不要读完就断掉</h3>
+  </div>
+  {primary && (
+    <a class="route-card" href={withBase(primary.href)}>
+      <strong>{primary.title}</strong>
+      <p class="section-intro">{primary.description}</p>
+    </a>
+  )}
+  {alternatives.length > 0 && (
+    <div class="grid two">
+      {alternatives.map((item) => (
+        <a class="card" href={withBase(item.href)}>
+          <strong>{item.title}</strong>
+          <p class="section-intro">{item.description}</p>
+        </a>
+      ))}
+    </div>
+  )}
+</section>

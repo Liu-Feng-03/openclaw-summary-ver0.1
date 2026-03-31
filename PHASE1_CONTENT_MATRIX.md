@@ -1,28 +1,43 @@
 # PHASE1_CONTENT_MATRIX.md — openclaw-summary
 
 Last updated: 2026-03-31
-Status: Phase 1 design deliverable
+Status: upgraded for v0.2 redesign planning
 
 ---
 
 ## 1. Purpose
 
-This file defines the **Phase 1 content architecture** for `openclaw-summary`.
+This file defines the **content and interaction architecture** for `openclaw-summary` after v0.1 feedback.
 
-Its job is to convert the roadmap into a page-by-page content plan that a new implementation process can use directly.
-
-Phase 1 focuses on:
+Its job is no longer only to say:
 - what pages exist
 - what each page must teach
-- who each page is for
-- how deep each page should go
-- which pages should be built first
+
+It must also define:
+- how users should enter the content
+- how module pages should preview content before navigation
+- what metadata each page/card should expose
+- how detail pages should orient the user
 
 This is still a **product/content planning artifact**, not implementation work.
 
 ---
 
-## 2. Content Depth Levels
+## 2. Core v0.2 planning shift
+
+v0.1 proved that the topic model is valid.
+
+v0.2 must solve a different problem:
+
+> The product needs to feel guided, expandable, and confidence-building instead of page-jumpy and directory-like.
+
+Therefore this matrix now covers both:
+- content architecture
+- experience architecture
+
+---
+
+## 3. Content Depth Levels
 
 To avoid content becoming either too shallow or too overwhelming, use these depth labels:
 
@@ -40,41 +55,77 @@ For experienced users who want best practices, edge cases, and deeper operating 
 
 ---
 
-## 3. Priority Levels
+## 4. Priority Levels
 
 ### P0 — Must exist first
-These pages define the product skeleton and first usable experience.
+These pages/patterns define the product skeleton and first usable experience.
 
 ### P1 — Should follow immediately
-These pages make the site genuinely useful.
+These pages/patterns make the site genuinely useful.
 
 ### P2 — Important expansion
-These pages deepen completeness and sharing value.
+These pages/patterns deepen completeness and sharing value.
 
 ### P3 — Polishing / later expansion
-These pages are useful, but not blockers for the first meaningful version.
+These pages are useful, but not blockers for the next meaningful public version.
 
 ---
 
-## 4. Module Overview
+## 5. New Interaction Layers
 
-| Module | Goal | Primary audience |
-|---|---|---|
-| Home | Explain the product and route users | All users |
-| Getting Started | Help absolute beginners enter smoothly | New users |
-| Core Concepts | Build a correct mental model | New + intermediate users |
-| Setup | Help users get OpenClaw running | New + practical users |
-| Use Cases | Show why OpenClaw matters in practice | Curious + practical users |
-| Advanced | Explain deeper mechanisms and best practices | Intermediate + advanced users |
-| FAQ | Reduce frustration and unblock adoption | All users |
+All major content in v0.2 should ideally support 3 layers:
+
+### Layer A — Preview
+A card, expandable item, or route block that helps the user decide whether to enter.
+
+### Layer B — Page Summary
+The top of an independent page should quickly explain what the page is about and why it matters.
+
+### Layer C — Full Reading
+The deeper explanation, examples, misunderstandings, related pages, and next steps.
+
+This means not every click must immediately trigger a hard context switch.
 
 ---
 
-## 5. Page-by-Page Content Matrix
+## 6. Shared Metadata Model
+
+The following metadata fields should be treated as first-class content fields where useful:
+
+- audience
+- difficulty
+- estimated reading time
+- prerequisites
+- tags
+- recommended sequence step
+- related pages
+- recommended next step
+- module
+- role in learning path
+
+This metadata should be displayable both on cards and on detail pages.
 
 ---
 
-## 5.1 Home
+## 7. Module Overview
+
+| Module | Goal | Primary audience | v0.2 experience role |
+|---|---|---|---|
+| Home | Explain the product and route users | All users | Routing + confidence building |
+| Getting Started | Help absolute beginners enter smoothly | New users | Guided onboarding hub |
+| Core Concepts | Build a correct mental model | New + intermediate users | Expandable concept hub |
+| Setup | Help users get OpenClaw running | New + practical users | Stepwise progress hub |
+| Use Cases | Show why OpenClaw matters in practice | Curious + practical users | Goal-based scenario hub |
+| Advanced | Explain deeper mechanisms and best practices | Intermediate + advanced users | Depth map |
+| FAQ | Reduce frustration and unblock adoption | All users | Fast unblock hub |
+
+---
+
+## 8. Page-by-Page Content Matrix
+
+---
+
+## 8.1 Home
 
 ### `/`
 - Priority: P0
@@ -82,29 +133,36 @@ These pages are useful, but not blockers for the first meaningful version.
 - Audience: all users
 - Goal:
   - explain what the site is
-  - explain why it exists
-  - route users into beginner path / concept path / setup path / scenario path
+  - explain how to use it
+  - route users into the right path quickly
 - Must teach:
   - this is a Chinese interactive learning site for OpenClaw
   - OpenClaw has a learning path from basics to advanced
-  - users can enter by sequence or by topic
+  - users can enter by stage, goal, or module
 - Must include:
   - hero section
-  - learning path section
-  - module entry cards
-  - scenario entry cards
-  - concept map preview
-  - advanced topics preview
-  - FAQ entry
+  - one primary CTA
+  - one secondary CTA
+  - three entry modes
+  - stronger learning path section
+  - module exploration section
+  - shareable deep-link recommendations
+- Must avoid:
+  - exposing too many equal-weight options too early
+  - feeling like a flat directory
+- v0.2 interaction requirements:
+  - route blocks or cards should reveal enough context before navigation
+  - learning path steps should be expandable or strongly previewed
 - Exit paths:
   - getting started
   - concepts
   - setup
   - use cases
+  - faq
 
 ---
 
-## 5.2 Getting Started
+## 8.2 Getting Started
 
 ### `/getting-started`
 - Priority: P0
@@ -119,6 +177,10 @@ These pages are useful, but not blockers for the first meaningful version.
   - beginner roadmap
   - estimated learning path
   - links to first 3–5 key pages
+  - “if you only have 10 minutes” shortcut
+- v0.2 interaction requirements:
+  - expandable beginner steps
+  - each step shows expected outcome, estimated time, and next move
 
 ### `/getting-started/what-is-openclaw`
 - Priority: P0
@@ -132,6 +194,10 @@ These pages are useful, but not blockers for the first meaningful version.
   - what makes it different from a plain chat UI
 - Must avoid:
   - too much architecture too early
+- Must include page-level orientation:
+  - breadcrumb
+  - beginner-friendly badge
+  - what to read next
 
 ### `/getting-started/how-to-learn`
 - Priority: P1
@@ -144,6 +210,8 @@ These pages are useful, but not blockers for the first meaningful version.
   - if you only want setup, go here
   - if you want architecture, go here
   - if you want use cases, go here
+- v0.2 interaction opportunity:
+  - compare learning paths as route cards
 
 ### `/getting-started/first-roadmap`
 - Priority: P1
@@ -158,7 +226,7 @@ These pages are useful, but not blockers for the first meaningful version.
 
 ---
 
-## 5.3 Core Concepts
+## 8.3 Core Concepts
 
 ### `/concepts`
 - Priority: P0
@@ -173,6 +241,9 @@ These pages are useful, but not blockers for the first meaningful version.
   - concept map entry
   - concept cards
   - recommended reading order
+- v0.2 interaction requirements:
+  - cards should be expandable before navigation
+  - expanded state should show why the concept matters, relationships, difficulty, related pages, and next step
 
 ### `/concepts/architecture`
 - Priority: P0
@@ -184,6 +255,9 @@ These pages are useful, but not blockers for the first meaningful version.
   - the main building blocks
   - how requests/messages/actions move through the system
   - where gateway, session, skills, tools, memory, nodes fit
+- Must include:
+  - relation map or relation summary
+  - what to read next by concept branch
 
 ### `/concepts/agent`
 - Priority: P1
@@ -293,7 +367,7 @@ These pages are useful, but not blockers for the first meaningful version.
 
 ---
 
-## 5.4 Setup & Deployment
+## 8.4 Setup & Deployment
 
 ### `/setup`
 - Priority: P0
@@ -304,6 +378,13 @@ These pages are useful, but not blockers for the first meaningful version.
 - Must teach:
   - setup has an order
   - users should verify success step by step
+- Must include:
+  - stepwise setup overview
+  - expected success checkpoints
+  - “I only want the shortest route” shortcut
+- v0.2 interaction requirements:
+  - setup steps should be expandable
+  - each step should show purpose, actions, success signal, and common pitfall
 
 ### `/setup/requirements`
 - Priority: P0
@@ -356,7 +437,7 @@ These pages are useful, but not blockers for the first meaningful version.
 
 ---
 
-## 5.5 Use Cases
+## 8.5 Use Cases
 
 ### `/use-cases`
 - Priority: P1
@@ -365,6 +446,8 @@ These pages are useful, but not blockers for the first meaningful version.
 - Goal:
   - show the scenario landscape
   - route users by goal
+- v0.2 interaction requirements:
+  - scenario cards should reveal who the scenario is for and what capabilities it uses before navigation
 
 ### `/use-cases/personal-assistant`
 - Priority: P1
@@ -417,7 +500,7 @@ These pages are useful, but not blockers for the first meaningful version.
 
 ---
 
-## 5.6 Advanced Topics
+## 8.6 Advanced Topics
 
 ### `/advanced`
 - Priority: P1
@@ -425,6 +508,8 @@ These pages are useful, but not blockers for the first meaningful version.
 - Audience: intermediate + advanced users
 - Goal:
   - provide an overview of deeper topics
+- v0.2 interaction requirements:
+  - advanced topics should be grouped by theme and difficulty rather than presented as a flat list
 
 ### `/advanced/session-model`
 - Priority: P1
@@ -477,7 +562,7 @@ These pages are useful, but not blockers for the first meaningful version.
 
 ---
 
-## 5.7 FAQ
+## 8.7 FAQ
 
 ### `/faq`
 - Priority: P1
@@ -485,6 +570,9 @@ These pages are useful, but not blockers for the first meaningful version.
 - Audience: all users
 - Goal:
   - provide categorized problem entry points
+- v0.2 interaction requirements:
+  - FAQ categories and questions should be collapsible
+  - users should be able to preview likely cause and confidence level before entering full pages
 
 ### `/faq/setup`
 - Priority: P1
@@ -530,112 +618,114 @@ These pages are useful, but not blockers for the first meaningful version.
 
 ---
 
-## 6. Recommended Build Order
+## 9. Shared Page Pattern Requirements
 
-This is the suggested order for the next process to execute.
+### 9.1 Top-level module pages
+Every top-level module page should include:
+- module intro
+- recommended reading order
+- expandable cards/items
+- quick-start or “only read this first” shortcut
+- next-step guidance
 
-### Wave 1 — Product skeleton (must build first)
-1. `/`
-2. `/getting-started`
-3. `/getting-started/what-is-openclaw`
-4. `/concepts`
-5. `/concepts/architecture`
-6. `/concepts/session`
-7. `/concepts/gateway`
-8. `/concepts/skills`
-9. `/concepts/tools`
-10. `/concepts/memory`
-11. `/setup`
-12. `/setup/requirements`
-13. `/setup/install`
-14. `/setup/configuration`
-15. `/setup/start-gateway`
-16. `/setup/first-message`
+### 9.2 Detail pages
+Every detail page should include:
+- breadcrumb
+- current module indicator
+- page purpose statement
+- recommended next page
+- related pages
+- previous / next navigation
 
-Why first:
-- these pages create the minimum learning loop:
-  understand → orient → set up → succeed once
-
-### Wave 2 — Make it truly useful
-17. `/setup/troubleshooting`
-18. `/use-cases`
-19. `/use-cases/personal-assistant`
-20. `/use-cases/messaging-platforms`
-21. `/advanced`
-22. `/advanced/session-model`
-23. `/advanced/memory-design`
-24. `/advanced/safety-boundaries`
-25. `/advanced/best-practices`
-26. `/faq`
-27. `/faq/setup`
-28. `/faq/connectivity`
-
-Why next:
-- this wave turns the site from “intro” into a practical, recommendable learning product
-
-### Wave 3 — Advanced completeness and expansion
-29. `/getting-started/how-to-learn`
-30. `/getting-started/first-roadmap`
-31. `/concepts/agent`
-32. `/concepts/node`
-33. `/concepts/dashboard`
-34. `/concepts/heartbeat-cron`
-35. `/concepts/subagents`
-36. `/concepts/acp`
-37. `/use-cases/github-workflow`
-38. `/use-cases/notes-reminders`
-39. `/use-cases/google-workspace`
-40. `/use-cases/heartbeat-automation`
-41. `/use-cases/remote-access`
-42. `/advanced/skill-design`
-43. `/advanced/subagent-workflows`
-44. `/advanced/debugging-logs`
-45. `/faq/ws-http-fallback`
-46. `/faq/files-and-memory`
-47. `/faq/skills-and-tools`
-48. `/faq/security-and-behavior`
-
-Why later:
-- these pages deepen the site and improve completeness, but are not blockers for the first meaningful public version
+### 9.3 Preferred detail page structure
+1. short answer
+2. why it matters
+3. deeper explanation
+4. common misunderstandings
+5. related concepts/pages
+6. what to read next
 
 ---
 
-## 7. Homepage Content Priority
+## 10. Updated Homepage Content Priority
 
-The homepage should be designed around five user intents:
-
-1. I am completely new — what is this?
-2. I want a learning route
-3. I want to set it up
-4. I want to know what it can do
-5. I already know some things — take me to advanced topics
-
-Therefore homepage section priority should be:
+The homepage should be designed around three entry modes rather than many equal-weight jumps.
 
 ### P0 homepage sections
 - hero
-- what this site helps with
-- learning path
-- top-level module cards
-- setup entry
-- concepts entry
+- one main CTA
+- three entry modes (stage / goal / module)
+- guided learning path
 
 ### P1 homepage sections
-- use case cards
-- concept map preview
-- advanced topics preview
-- FAQ entry
+- module exploration area
+- shareable deep-link recommendations
+- concept relationship preview
+- FAQ / troubleshooting fast entry
 
 ### P2 homepage sections
 - visual storytelling enhancements
-- social/share-focused module blocks
 - update history or version notes
+- stronger social/share blocks
 
 ---
 
-## 8. Content Writing Rules for Next Process
+## 11. Updated Build / Rebuild Order
 
-When the next process starts writing actual page content, it should follow these rules:
+This is the suggested order for the next implementation process.
+
+### Wave 1 — Experience skeleton + core user journey
+1. Astro project scaffold
+2. global layout system
+3. metadata model
+4. top navigation + breadcrumb + previous/next components
+5. reusable expandable card / accordion component
+6. homepage rebuild
+7. `/getting-started`
+8. `/concepts`
+9. `/setup`
+10. `/faq`
+
+Why first:
+- these deliver the biggest UX improvement
+- these solve orientation and jump-friction first
+- these build the reusable component system for the whole site
+
+### Wave 2 — Representative deep pages + scenario layer
+11. `/getting-started/what-is-openclaw`
+12. `/getting-started/how-to-learn`
+13. `/concepts/architecture`
+14. `/concepts/session`
+15. `/concepts/gateway`
+16. `/concepts/skills`
+17. `/concepts/tools`
+18. `/concepts/memory`
+19. `/setup/requirements`
+20. `/setup/install`
+21. `/setup/configuration`
+22. `/setup/start-gateway`
+23. `/setup/first-message`
+24. `/setup/troubleshooting`
+25. `/use-cases`
+26. `/advanced`
+
+Why next:
+- this establishes the most meaningful learning loop and representative patterns
+
+### Wave 3 — Full migration and expansion
+27. remaining detail pages across concepts / use-cases / advanced / faq
+28. concept relationship interaction upgrade
+29. shareability and browsing polish
+30. optional search/filter/progress enhancements
+
+Why later:
+- these deepen the experience after the core interaction model is stable
+
+---
+
+## 12. Content Writing Rules for Next Process
+
+When the next process starts writing or rewriting actual page content, it should follow these rules:
 
 ### Rule 1
 Always start with a short answer before expanding.
@@ -659,26 +749,37 @@ For setup/troubleshooting pages, define expected success signals clearly.
 ### Rule 6
 For advanced pages, avoid becoming abstract for its own sake; tie concepts back to real user decisions.
 
+### Rule 7
+Write preview-friendly summaries suitable for expandable cards.
+
+### Rule 8
+Treat metadata as part of content design, not as optional decoration.
+
 ---
 
-## 9. Suggested Deliverables for the Next Process
+## 13. Suggested Deliverables for the Next Process
 
 The next process should pick up from here and produce:
 
-1. final confirmed sitemap
-2. low-fidelity page outlines for Wave 1 pages
+1. Astro-based scaffold
+2. confirmed metadata schema
 3. homepage wireframe/content outline
-4. concept page layout pattern
-5. setup page layout pattern
-6. FAQ page layout pattern
-7. initial implementation plan aligned with Wave 1
+4. module page pattern
+5. detail page pattern
+6. navigation component spec
+7. card/accordion component spec
+8. first rebuilt core pages aligned with Wave 1
 
 ---
 
-## 10. Short Handoff
+## 14. Short Handoff
 
 If another process starts from this file, the immediate focus should be:
 
-> Build the first meaningful public version by completing **Wave 1** first, then **Wave 2**, then expand to **Wave 3**.
+> Rebuild the site around guidance, previews, and orientation first.
 
-This preserves clarity, token efficiency, and product coherence.
+Do not treat the next phase as a plain content expansion pass.
+
+Treat it as:
+
+> a shift from a static directory-like learning site to a guided interactive learning product.
