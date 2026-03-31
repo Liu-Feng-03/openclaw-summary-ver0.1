@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang='zh-CN'>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>Debugging Logs · openclaw-summary</title>
+  <meta name='description' content='很多新手被日志吓到，不是因为问题真的大，而是因为缺少一套分层判断方法。' />
+  <link rel='stylesheet' href='../../assets/styles.css' />
+</head>
+<body>
+  <header class='topbar'>
+    <div class='shell topbar-inner'>
+      <a class='brand' href='../../'>OpenClaw 中文学习指南</a>
+      <nav class='nav'><a data-nav href='../../'>首页</a><a data-nav href='../../getting-started/'>入门</a><a data-nav href='../../concepts/'>概念</a><a data-nav href='../../setup/'>配置</a><a data-nav href='../../use-cases/'>场景</a><a data-nav href='../../advanced/'>进阶</a><a data-nav href='../../faq/'>FAQ</a></nav>
+    </div>
+  </header>
+  <main class='shell'>
+    <section class='hero'>
+      <span class='eyebrow'>Advanced</span>
+      <div class='hero-grid'>
+        <div class='panel hero-copy'>
+          <h1>读日志的目标不是看到更多文本，而是更快分辨“严重故障”和“可容忍噪音”</h1>
+          <p>很多新手被日志吓到，不是因为问题真的大，而是因为缺少一套分层判断方法。</p>
+          <div class='badges'>
+            <span class='badge'>中文学习站</span>
+            <span class='badge'>可分享 URL</span>
+            <span class='badge'>从入门到进阶</span>
+          </div>
+          <div class='cta-row'><a class='btn primary' href='../../advanced/best-practices/'>看 Best Practices</a><a class='btn ' href='../../advanced/'>回到 Advanced</a></div>
+        </div>
+        <aside class='panel hero-side'>
+          <div class='kpi'><strong>48</strong><span>已覆盖 roadmap 中首页、入门、概念、配置、场景、进阶、FAQ 全部模块。</span></div>
+          <div class='kpi'><strong>多页面</strong><span>每个重要主题都有独立 URL，方便分享与后续扩写。</span></div>
+          <div class='kpi'><strong>分层阅读</strong><span>页面都遵循“短答案 → 解释 → 下一步”的学习节奏。</span></div>
+        </aside>
+      </div>
+      <div class='pathline'>这一页帮助你建立“先分类、再定位、再决定是否需要处理”的直觉。</div>
+    </section>
+    <section class='section'><div class='section-head'><h2>先判断什么</h2></div><ul class='bullet-list'><li>这是 error、warning 还是 benign noise？</li><li>它影响功能，还是只是回退/降级？</li><li>它落在哪一层：环境、配置、gateway、连接、工具、UI？</li></ul></section><section class='section'><div class='section-head'><h2>相关 FAQ</h2></div><div class='cards'><article class='card'><h3>WS / HTTP fallback</h3><p>理解为什么 fallback 不等于系统坏了。</p><a class='jump' href='../../faq/ws-http-fallback/'>查看页面 →</a></article><article class='card'><h3>Files & Memory</h3><p>理解缺文件或 ENOENT 类现象。</p><a class='jump' href='../../faq/files-and-memory/'>查看页面 →</a></article></div></section>
+  </main>
+  <footer class='footer'>
+    <div class='shell footer-box'>
+      <strong>openclaw-summary v0.1</strong>
+      <div>面向中文用户的 OpenClaw 学习站。已覆盖 roadmap 规划的主要页面骨架与首版内容层。</div>
+    </div>
+  </footer>
+  <script src='../../assets/app.js'></script>
+</body>
+</html>

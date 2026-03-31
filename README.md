@@ -3,40 +3,20 @@
 一个面向中文用户的 OpenClaw 学习站原型。
 
 ## 当前状态
-- 已根据 `ROADMAP.md` 与 `PHASE1_CONTENT_MATRIX.md` 落地 Wave 1 多页面静态骨架
-- 已补齐首页、Getting Started、Core Concepts、Setup，以及基础的 Use Cases / Advanced / FAQ 入口页
-- 当前实现为可直接本地打开的静态站点，便于快速迭代页面结构与文案
-
-## 已实现页面
-- `/`
-- `/getting-started`
-- `/getting-started/what-is-openclaw`
-- `/concepts`
-- `/concepts/architecture`
-- `/concepts/session`
-- `/concepts/gateway`
-- `/concepts/skills`
-- `/concepts/tools`
-- `/concepts/memory`
-- `/setup`
-- `/setup/requirements`
-- `/setup/install`
-- `/setup/configuration`
-- `/setup/start-gateway`
-- `/setup/first-message`
-
-并补充了基础入口页：
-- `/use-cases`
-- `/use-cases/personal-assistant`
-- `/use-cases/messaging-platforms`
-- `/advanced`
-- `/advanced/session-model`
-- `/advanced/memory-design`
-- `/advanced/safety-boundaries`
-- `/advanced/best-practices`
-- `/faq`
-- `/faq/setup`
-- `/faq/connectivity`
+- 已根据 `ROADMAP.md` 与 `PHASE1_CONTENT_MATRIX.md` 开发完整首版多页面静态站点
+- 已覆盖首页、Getting Started、Core Concepts、Setup、Use Cases、Advanced、FAQ 七大模块
+- 所有 roadmap 页面均已生成独立 URL，可直接本地打开或通过 GitHub Pages 访问
 
 ## 本地预览
-直接打开 `index.html`，或在仓库目录启动一个静态文件服务器。
+直接打开 `index.html`，或在仓库目录启动静态文件服务器：
+
+```bash
+python3 -m http.server 8000
+```
+
+然后访问：`http://localhost:8000`
+
+## 站点规模
+- 总页面数：48
+- 模块：Home / Getting Started / Concepts / Setup / Use Cases / Advanced / FAQ
+- 形式：纯静态多页面站点，便于继续升级到框架化实现

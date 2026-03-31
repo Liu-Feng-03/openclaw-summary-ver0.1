@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang='zh-CN'>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>Heartbeat 与 Cron · openclaw-summary</title>
+  <meta name='description' content='一个更偏“定期顺手检查”，一个更偏“按时间点精确执行”。' />
+  <link rel='stylesheet' href='../../assets/styles.css' />
+</head>
+<body>
+  <header class='topbar'>
+    <div class='shell topbar-inner'>
+      <a class='brand' href='../../'>OpenClaw 中文学习指南</a>
+      <nav class='nav'><a data-nav href='../../'>首页</a><a data-nav href='../../getting-started/'>入门</a><a data-nav href='../../concepts/'>概念</a><a data-nav href='../../setup/'>配置</a><a data-nav href='../../use-cases/'>场景</a><a data-nav href='../../advanced/'>进阶</a><a data-nav href='../../faq/'>FAQ</a></nav>
+    </div>
+  </header>
+  <main class='shell'>
+    <section class='hero'>
+      <span class='eyebrow'>Core Concepts</span>
+      <div class='hero-grid'>
+        <div class='panel hero-copy'>
+          <h1>Heartbeat 和 cron 都能做“周期性工作”，但适用场景不同</h1>
+          <p>一个更偏“定期顺手检查”，一个更偏“按时间点精确执行”。</p>
+          <div class='badges'>
+            <span class='badge'>中文学习站</span>
+            <span class='badge'>可分享 URL</span>
+            <span class='badge'>从入门到进阶</span>
+          </div>
+          <div class='cta-row'><a class='btn primary' href='../../use-cases/heartbeat-automation/'>看 Heartbeat Automation</a><a class='btn ' href='../../concepts/'>回到 Concepts</a></div>
+        </div>
+        <aside class='panel hero-side'>
+          <div class='kpi'><strong>48</strong><span>已覆盖 roadmap 中首页、入门、概念、配置、场景、进阶、FAQ 全部模块。</span></div>
+          <div class='kpi'><strong>多页面</strong><span>每个重要主题都有独立 URL，方便分享与后续扩写。</span></div>
+          <div class='kpi'><strong>分层阅读</strong><span>页面都遵循“短答案 → 解释 → 下一步”的学习节奏。</span></div>
+        </aside>
+      </div>
+      <div class='pathline'>理解两者差异，能帮你设计更省 token、更稳定的自动化方式。</div>
+    </section>
+    <section class='section'><div class='section-head'><h2>Heartbeat 更适合</h2></div><ul class='bullet-list'><li>把多项检查批量合并。</li><li>需要依赖最近上下文的轻量周期工作。</li><li>时间允许略有漂移的任务。</li></ul></section><section class='section'><div class='section-head'><h2>Cron 更适合</h2></div><ul class='bullet-list'><li>精确时间触发。</li><li>独立线程处理。</li><li>一次性提醒或严格调度任务。</li></ul></section><section class='section'><div class='section-head'><h2>场景页</h2></div><div class='cards'><article class='card'><h3>Heartbeat Automation</h3><p>从使用角度看周期性帮助。</p><a class='jump' href='../../use-cases/heartbeat-automation/'>查看页面 →</a></article><article class='card'><h3>Best Practices</h3><p>看如何降低无效 API 消耗。</p><a class='jump' href='../../advanced/best-practices/'>查看页面 →</a></article></div></section>
+  </main>
+  <footer class='footer'>
+    <div class='shell footer-box'>
+      <strong>openclaw-summary v0.1</strong>
+      <div>面向中文用户的 OpenClaw 学习站。已覆盖 roadmap 规划的主要页面骨架与首版内容层。</div>
+    </div>
+  </footer>
+  <script src='../../assets/app.js'></script>
+</body>
+</html>
