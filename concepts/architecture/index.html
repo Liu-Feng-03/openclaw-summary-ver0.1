@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang='zh-CN'>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>系统架构 · openclaw-summary</title>
+  <meta name='description' content='最实用的理解方式不是背定义，而是看消息怎么进来、上下文怎么积累、工具怎么被调用、结果怎么回去。' />
+  <link rel='stylesheet' href='../../assets/styles.css' />
+</head>
+<body>
+  <header class='topbar'>
+    <div class='shell topbar-inner'>
+      <a class='brand' href='../../'>OpenClaw 中文学习指南</a>
+      <nav class='nav'><a data-nav href='../../'>首页</a><a data-nav href='../../getting-started/'>入门</a><a data-nav href='../../concepts/'>概念</a><a data-nav href='../../setup/'>配置</a><a data-nav href='../../use-cases/'>场景</a><a data-nav href='../../advanced/'>进阶</a><a data-nav href='../../faq/'>FAQ</a></nav>
+    </div>
+  </header>
+  <main class='shell'>
+    <section class='hero'>
+      <span class='eyebrow'>Core Concepts</span>
+      <div class='hero-grid'>
+        <div class='panel hero-copy'>
+          <h1>OpenClaw 是由入口、会话、能力层和持久化层组成的系统</h1>
+          <p>最实用的理解方式不是背定义，而是看消息怎么进来、上下文怎么积累、工具怎么被调用、结果怎么回去。</p>
+          <div class='cta-row'><a class='btn primary' href='../../concepts/session/'>看 Session</a><a class='btn ' href='../../concepts/gateway/'>看 Gateway</a></div>
+        </div>
+        <aside class='panel hero-side'>
+          <div class='kpi'><strong>Wave 1</strong><span>当前优先覆盖理解 → 配置 → 首次成功闭环。</span></div>
+          <div class='kpi'><strong>多页面</strong><span>每个重要主题都有独立 URL，便于分享与扩展。</span></div>
+          <div class='kpi'><strong>分层阅读</strong><span>所有页面都遵循“短答案 → 解释 → 下一步”的节奏。</span></div>
+        </aside>
+      </div>
+      <div class='pathline'>把架构看懂后，后面的 gateway、session、skills、tools、memory 就不再像零散术语。</div>
+    </section>
+    <section class='section'><div class='section-head'><h2>主要构件</h2></div><ul class='bullet-list'><li>Gateway：承接运行、连接与服务入口。</li><li>Session：承载当前上下文与边界。</li><li>Agent instructions / persona：定义这个助理怎么说、怎么做。</li><li>Skills：在特定任务里注入更细的行为规则。</li><li>Tools：真正执行读文件、发请求、调用服务等动作。</li><li>Memory files：提供跨会话连续性与长期记录。</li></ul></section><section class='section'><div class='section-head'><h2>一条典型流转</h2></div><div class='steps'><article class='step'><div class='step-index'>1</div><div><h3>消息进入系统</h3><p>来自 Telegram、Discord、Dashboard 或其他入口。</p></div></article><article class='step'><div class='step-index'>2</div><div><h3>系统选择当前 session</h3><p>决定沿用哪些上下文与规则。</p></div></article><article class='step'><div class='step-index'>3</div><div><h3>模型结合 instructions / skills 规划动作</h3><p>判断是直接回答，还是需要读文件 / 调工具。</p></div></article><article class='step'><div class='step-index'>4</div><div><h3>调用 tools 执行</h3><p>读取、搜索、写入、查询、发送。</p></div></article><article class='step'><div class='step-index'>5</div><div><h3>把结果回传</h3><p>输出给当前用户或目标渠道。</p></div></article></div></section><section class='section'><div class='section-head'><h2>为什么它比名词列表更重要</h2></div><ul class='bullet-list'><li>因为很多问题本质上都是“结构关系没搞清”。</li><li>比如权限、行为边界、记忆位置、远程连接、日志现象，最终都能回到架构层解释。</li></ul></section>
+  </main>
+  <footer class='footer'>
+    <div class='shell footer-box'>
+      <strong>openclaw-summary v0.1</strong>
+      <div>面向中文用户的 OpenClaw 学习站。当前优先完成 Wave 1 骨架，后续继续补齐 Wave 2 / Wave 3 页面与内容深度。</div>
+    </div>
+  </footer>
+  <script src='../../assets/app.js'></script>
+</body>
+</html>

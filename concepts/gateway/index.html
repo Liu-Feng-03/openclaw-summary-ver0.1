@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang='zh-CN'>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>Gateway · openclaw-summary</title>
+  <meta name='description' content='如果把 OpenClaw 看成一个可工作的助理系统，那么 gateway 更像承载它对外服务、控制面与部分连接能力的基础设施。' />
+  <link rel='stylesheet' href='../../assets/styles.css' />
+</head>
+<body>
+  <header class='topbar'>
+    <div class='shell topbar-inner'>
+      <a class='brand' href='../../'>OpenClaw 中文学习指南</a>
+      <nav class='nav'><a data-nav href='../../'>首页</a><a data-nav href='../../getting-started/'>入门</a><a data-nav href='../../concepts/'>概念</a><a data-nav href='../../setup/'>配置</a><a data-nav href='../../use-cases/'>场景</a><a data-nav href='../../advanced/'>进阶</a><a data-nav href='../../faq/'>FAQ</a></nav>
+    </div>
+  </header>
+  <main class='shell'>
+    <section class='hero'>
+      <span class='eyebrow'>Core Concepts</span>
+      <div class='hero-grid'>
+        <div class='panel hero-copy'>
+          <h1>Gateway 是 OpenClaw 的运行与连接核心层</h1>
+          <p>如果把 OpenClaw 看成一个可工作的助理系统，那么 gateway 更像承载它对外服务、控制面与部分连接能力的基础设施。</p>
+          <div class='cta-row'><a class='btn primary' href='../../setup/'>看 Setup</a><a class='btn ' href='../../setup/start-gateway/'>查看启动网关</a></div>
+        </div>
+        <aside class='panel hero-side'>
+          <div class='kpi'><strong>Wave 1</strong><span>当前优先覆盖理解 → 配置 → 首次成功闭环。</span></div>
+          <div class='kpi'><strong>多页面</strong><span>每个重要主题都有独立 URL，便于分享与扩展。</span></div>
+          <div class='kpi'><strong>分层阅读</strong><span>所有页面都遵循“短答案 → 解释 → 下一步”的节奏。</span></div>
+        </aside>
+      </div>
+      <div class='pathline'>很多用户真正“操作 OpenClaw”的感觉，都是通过 gateway 体现出来的。</div>
+    </section>
+    <section class='section'><div class='section-head'><h2>Gateway 主要负责什么</h2></div><ul class='bullet-list'><li>提供系统服务入口。</li><li>支撑 Dashboard / Control UI 等操作界面。</li><li>承接部分远程访问、连接状态与服务健康检查。</li><li>成为很多日志、连接问题和运行状态观察的中心。</li></ul></section><section class='section'><div class='section-head'><h2>为什么新手必须理解它</h2></div><ul class='bullet-list'><li>因为“装好了但为什么没跑起来”的问题，很多都落在 gateway 层。</li><li>启动、状态、连接、token、远程访问、回退行为，都会和 gateway 直接相关。</li></ul></section><section class='section'><div class='section-head'><h2>你通常会在哪些场景遇到它</h2></div><div class='cards'><article class='card'><h3>启动服务</h3><p>确认网关是否已正常运行。</p><a class='jump' href='../../setup/start-gateway/'>查看页面 →</a></article><article class='card'><h3>连接控制界面</h3><p>通过 dashboard / control UI 观察与操作。</p><a class='jump' href='../../faq/connectivity/'>查看页面 →</a></article><article class='card'><h3>排查 ws / http 行为</h3><p>理解某些连接链路为何会 fallback。</p><a class='jump' href='../../faq/'>查看页面 →</a></article></div></section>
+  </main>
+  <footer class='footer'>
+    <div class='shell footer-box'>
+      <strong>openclaw-summary v0.1</strong>
+      <div>面向中文用户的 OpenClaw 学习站。当前优先完成 Wave 1 骨架，后续继续补齐 Wave 2 / Wave 3 页面与内容深度。</div>
+    </div>
+  </footer>
+  <script src='../../assets/app.js'></script>
+</body>
+</html>

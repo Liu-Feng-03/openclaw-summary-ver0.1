@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang='zh-CN'>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>启动 Gateway · openclaw-summary</title>
+  <meta name='description' content='你需要知道“正常启动长什么样”，这样遇到异常时才不会被无意义日志吓到。' />
+  <link rel='stylesheet' href='../../assets/styles.css' />
+</head>
+<body>
+  <header class='topbar'>
+    <div class='shell topbar-inner'>
+      <a class='brand' href='../../'>OpenClaw 中文学习指南</a>
+      <nav class='nav'><a data-nav href='../../'>首页</a><a data-nav href='../../getting-started/'>入门</a><a data-nav href='../../concepts/'>概念</a><a data-nav href='../../setup/'>配置</a><a data-nav href='../../use-cases/'>场景</a><a data-nav href='../../advanced/'>进阶</a><a data-nav href='../../faq/'>FAQ</a></nav>
+    </div>
+  </header>
+  <main class='shell'>
+    <section class='hero'>
+      <span class='eyebrow'>Setup</span>
+      <div class='hero-grid'>
+        <div class='panel hero-copy'>
+          <h1>启动网关的目标不是看到一串日志，而是确认系统已经进入健康可交互状态</h1>
+          <p>你需要知道“正常启动长什么样”，这样遇到异常时才不会被无意义日志吓到。</p>
+          <div class='cta-row'><a class='btn primary' href='../../setup/first-message/'>完成 First Message</a><a class='btn ' href='../../setup/troubleshooting/'>看 Troubleshooting</a></div>
+        </div>
+        <aside class='panel hero-side'>
+          <div class='kpi'><strong>Wave 1</strong><span>当前优先覆盖理解 → 配置 → 首次成功闭环。</span></div>
+          <div class='kpi'><strong>多页面</strong><span>每个重要主题都有独立 URL，便于分享与扩展。</span></div>
+          <div class='kpi'><strong>分层阅读</strong><span>所有页面都遵循“短答案 → 解释 → 下一步”的节奏。</span></div>
+        </aside>
+      </div>
+      <div class='pathline'>很多体验好不好，取决于你是否会验证 gateway 状态。</div>
+    </section>
+    <section class='section'><div class='section-head'><h2>你要验证的不是“有没有输出”</h2></div><ul class='bullet-list'><li>而是 gateway 是否成功启动。</li><li>状态检查是否正常。</li><li>控制界面 / 连接入口是否能工作。</li></ul></section><section class='section'><div class='section-head'><h2>健康启动的直觉</h2></div><ul class='bullet-list'><li>服务命令能正常启动。</li><li>状态命令能给出清晰结果。</li><li>如果有 dashboard / control UI，它应能连上当前运行中的 gateway。</li></ul></section><section class='section'><div class='section-head'><h2>遇到异常时优先判断哪一层</h2></div><div class='steps'><article class='step'><div class='step-index'>1</div><div><h3>启动失败</h3><p>先看环境与配置。</p></div></article><article class='step'><div class='step-index'>2</div><div><h3>界面连不上</h3><p>优先看 gateway 与 token / 连接配置。</p></div></article><article class='step'><div class='step-index'>3</div><div><h3>日志有 warning</h3><p>先判断是否只是可容忍回退，而不是致命故障。</p></div></article></div></section>
+  </main>
+  <footer class='footer'>
+    <div class='shell footer-box'>
+      <strong>openclaw-summary v0.1</strong>
+      <div>面向中文用户的 OpenClaw 学习站。当前优先完成 Wave 1 骨架，后续继续补齐 Wave 2 / Wave 3 页面与内容深度。</div>
+    </div>
+  </footer>
+  <script src='../../assets/app.js'></script>
+</body>
+</html>
